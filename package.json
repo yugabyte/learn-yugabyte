@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-gitbook-boilerplate",
+  "name": "learn-yugabyte",
   "private": true,
-  "description": "Documentation, built with mdx",
-  "author": "Praveen <praveen@hasura.io> (@praveenweb)",
+  "description": "{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}",
+  "author": "Andrew Cai <andrew@yugabyte.com>",
   "version": "0.0.1",
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
