@@ -1,7 +1,7 @@
 {
   "name": "learn-yugabyte",
   "private": true,
-  "description": "{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}",
+  "description": "Collection of tutorials geared toward distributed SQL.",
   "author": "Andrew Cai <andrew@yugabyte.com>",
   "version": "0.0.1",
   "dependencies": {
@@ -42,7 +42,7 @@
     "react-live": "^2.0.1",
     "system-components": "^3.0.3"
   },
-  "license": "MIT",
+  "license": "Apache 2.0",
   "main": "n/a",
   "scripts": {
     "start": "gatsby develop",
