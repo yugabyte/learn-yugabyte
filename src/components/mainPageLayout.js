@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import { MDXProvider } from "@mdx-js/react";
 import ThemeProvider from "./themeProvider";
-import mdxComponents from "./mdxComponents";
-import Sidebar from "./sidebar";
-import RightSidebar from "./rightSidebar";
 import Footer from './Footer';
 import Card from './Card';
 

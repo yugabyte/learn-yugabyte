@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import styled from "react-emotion";
 import YBLogo from './images/ybsymbol-white.svg';
 import GithubLogo from './images/github-white.svg';

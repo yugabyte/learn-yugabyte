@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
-import styled, { injectGlobal } from "react-emotion";
+import { injectGlobal } from "react-emotion";
 import '../components/styles.css';
 import config from '../../config';
 import LandingPage from '../components/mainPageLayout';

@@ -5,11 +5,14 @@ class NextPrevious extends React.Component {
   render() {
     const { mdx, nav } = this.props;
     let currentIndex;
-    const currentPaginationInfo = nav.map((el, index) => {
+    for (let index = 0; index < nav.length; index++) {
+      const el = nav[index];
       if (el && (el.url === mdx.fields.slug)) {
         currentIndex = index;
+        break;
       }
-    });
+    } 
+
     const nextInfo = {};
     const previousInfo = {};
     if (currentIndex === undefined) { // index

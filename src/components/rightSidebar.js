@@ -1,11 +1,8 @@
 import React from "react";
 import { StaticQuery, graphql } from "gatsby";
 import styled from "react-emotion";
-import Link from "./link";
 import './styles.css';
 import config from '../../config';
-
-const forcedNavOrder = config.sidebar.forcedNavOrder;
 
 const Sidebar = styled('aside')`
   width: 100%;
@@ -29,6 +26,7 @@ const Sidebar = styled('aside')`
 const ListItem = styled(({ className, active, level, ...props }) => {
     return (
       <li className={className}>
+        {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a href={props.to} {...props} />
       </li>
     );
@@ -80,10 +78,9 @@ const SidebarLayout = ({ location }) => (
       }
     `}
     render={({ allMdx }) => {
-      let navItems = [];
       let finalNavItems;
       if (allMdx.edges !== undefined && allMdx.edges.length > 0) {
-        const navItems = allMdx.edges.map((item, index) => {
+        allMdx.edges.forEach((item, index) => {
           let innerItems;
           if(item !== undefined) {
             if ((item.node.fields.slug === location.pathname) || (config.gatsby.pathPrefix + item.node.fields.slug) === location.pathname) {

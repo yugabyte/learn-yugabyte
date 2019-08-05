@@ -30,7 +30,6 @@ const Header = ({location}) => (
         }
         `}
     render={(data) => {
-      const logoImg = require('./images/logo.svg');
       const twitter = require('./images/twitter.svg');
       const {
         site: {
@@ -78,7 +77,7 @@ const Header = ({location}) => (
               <ul className={'nav navbar-nav navBarUL navbar-right'}>
                 {tweetText !== '' ? 
                   (<li>
-                    <a href={'https://twitter.com/intent/tweet?&text=' + tweetText} target="_blank">
+                    <a href={'https://twitter.com/intent/tweet?&text=' + tweetText} target="_blank" rel="noopener noreferrer">
                       <img className={'twitterIcon'} src={twitter} alt={'Twitter'} />
                     </a>
                    </li>) : null
@@ -87,10 +86,11 @@ const Header = ({location}) => (
                   if(link.link !== '' && link.text !== '') {
                     return(
                       <li key={key}>
-                        <a href={link.link} target="_blank">{link.text}</a>
+                        <a href={link.link} target="_blank" rel="noopener noreferrer">{link.text}</a>
                       </li>
                     );
                   }
+                  return null;
                 })}
               </ul>
             </div>

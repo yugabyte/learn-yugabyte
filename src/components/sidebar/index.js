@@ -6,12 +6,11 @@ import {ExternalLink} from "react-feather";
 import '../styles.css';
 import config from '../../../config';
 
-const forcedNavOrder = config.sidebar.forcedNavOrder;
-
 // eslint-disable-next-line no-unused-vars
 const ListItem = styled(({ className, active, level, ...props }) => {
     return (
       <li className={className}>
+        {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a href={props.to} {...props} />
       </li>
     );
@@ -138,6 +137,7 @@ const SidebarLayout = ({location}) => (
                   </ListItem>
                 );
               }
+              return null;
             })}
           </ul>
         </Sidebar>

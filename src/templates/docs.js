@@ -97,6 +97,7 @@ export default class MDXRuntimeTest extends Component {
           );
           return { title: node.fields.title, url: node.fields.slug };
         }
+        return null;
       });
 
     // meta tags
