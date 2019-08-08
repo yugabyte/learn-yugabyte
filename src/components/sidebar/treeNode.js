@@ -16,6 +16,7 @@ const TreeNode = ({className = '', setCollapsed, collapsed, url, title, items, l
   return (
     <li
       className={calculatedClassName}
+      key={`tree-node-${title}`}
     >
       {!config.sidebar.frontLine && title && hasChildren ? (
         <button

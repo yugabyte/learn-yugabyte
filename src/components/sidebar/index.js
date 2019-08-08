@@ -121,11 +121,15 @@ const SidebarLayout = ({location}) => (
       }
     `}
     render={({allMdx}) => {
+      const displayedNodes = allMdx.edges.filter((edge) => {
+        const field = edge.node.fields;
+        return field.slug[field.slug.lastIndexOf('/') + 1] !== '_';
+      });
       return (
         <Sidebar>
           <ul className={'sideBarUL'}>
             <Tree
-              edges={allMdx.edges}
+              edges={displayedNodes}
             />
             <Divider />
             {config.sidebar.links.map((link, key) => {

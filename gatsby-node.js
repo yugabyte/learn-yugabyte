@@ -33,14 +33,21 @@ exports.createPages = ({ graphql, page, actions }) => {
 
         // Create blog posts pages.
         result.data.allMdx.edges.forEach(({ node }) => {
-          if (node.fields.slug && node.fields.slug !== '/') {
-            createPage({
-              path: node.fields.slug,
-              component: path.resolve('./src/templates/docs.js'),
-              context: {
-                id: node.fields.id
-              }
-            });
+          // Skip pages that start with underline
+          const nodeSlug = node.fields.slug;
+          const pos = nodeSlug.lastIndexOf('/');
+          if (nodeSlug && nodeSlug.charAt(pos + 1) === '_') {
+            return null;
+          }
+          
+          if (nodeSlug && nodeSlug !== '/') {
+              createPage({
+                path: nodeSlug,
+                component: path.resolve('./src/templates/docs.js'),
+                context: {
+                  id: node.fields.id
+                }
+              });
           } else {
             createPage({
               path: '/',
@@ -50,7 +57,6 @@ exports.createPages = ({ graphql, page, actions }) => {
               }
             });
           }
-          
         });
       })
     );

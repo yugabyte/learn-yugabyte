@@ -1,0 +1,3 @@
+[submodule "content/ysql"]
+	path = content/ysql
+	url = https://github.com/YugaByte/yugabyte-db.wiki.git
