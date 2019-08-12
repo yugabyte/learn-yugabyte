@@ -36,7 +36,7 @@ const config = {
 	},
 	"courses": [
 		{
-			"title": "Learn YSQL",
+			"title": "Fundamentals of YSQL",
 			"description": "Step by step to learn how to install and use YugaByte SQL.",
 			"duration": "2 hrs"
 		},
