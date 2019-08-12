@@ -89,6 +89,10 @@ export default class MDXRuntimeTest extends Component {
         return acc.concat(navItems[cur]);
       }, [])
       .concat(navItems.items)
+      .filter(slug => {
+        const pos = slug.lastIndexOf('/');
+        return slug.charAt(pos + 1) !== '_';
+      })
       .map(slug => {
         if(slug) {
           const { node } = allMdx.edges.find(
