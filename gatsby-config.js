@@ -12,7 +12,7 @@ module.exports = {
     headerTitle: config.header.title,
     githubUrl: config.header.githubUrl,
     helpUrl: config.header.helpUrl,
-    tweetText: config.header.tweetText,
+    slackUrl: config.header.slackUrl,
     headerLinks: config.header.links,
     siteUrl: config.gatsby.siteUrl,
   },

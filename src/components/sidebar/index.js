@@ -121,7 +121,7 @@ const SidebarLayout = ({location}) => (
       }
     `}
     render={({allMdx}) => {
-      const displayedNodes = allMdx.edges.filter((edge) => {
+      const displayedNodes = allMdx.edges.filter((edge) => {        
         const field = edge.node.fields;
         return field.slug[field.slug.lastIndexOf('/') + 1] !== '_';
       });

@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import GitHubButton from 'react-github-btn'
 import Link from "./link";
 import ybLogo from './images/yb-horizontal-alt-logo.png';
+import slackLogo from './images/slack-white.svg';
 import './styles.css';
 
 import Sidebar from "./sidebar";
@@ -16,8 +17,7 @@ const Header = ({location}) => (
             siteMetadata {
               headerTitle
               githubUrl
-              helpUrl
-              tweetText
+              slackUrl
               logo {
                 link
               }
@@ -30,14 +30,12 @@ const Header = ({location}) => (
         }
         `}
     render={(data) => {
-      const twitter = require('./images/twitter.svg');
       const {
         site: {
           siteMetadata: {
             headerTitle,
             githubUrl,
-            helpUrl,
-            tweetText,
+            slackUrl,
             logo,
             headerLinks,
           }
@@ -69,30 +67,27 @@ const Header = ({location}) => (
                     (<li className={'githubBtn'}>
                       <GitHubButton href={githubUrl} data-show-count="true" aria-label="Star on GitHub">Star</GitHubButton>
                     </li>) : null}
-                  {helpUrl !== '' ? 
-                    (<li><a href={helpUrl}>Need Help?</a></li>) : null
-                  }
                 </ul>
-              }
-              <ul className={'nav navbar-nav navBarUL navbar-right'}>
-                {tweetText !== '' ? 
-                  (<li>
-                    <a href={'https://twitter.com/intent/tweet?&text=' + tweetText} target="_blank" rel="noopener noreferrer">
-                      <img className={'twitterIcon'} src={twitter} alt={'Twitter'} />
-                    </a>
-                   </li>) : null
-                }
-                {headerLinks.map((link, key) => {
-                  if(link.link !== '' && link.text !== '') {
-                    return(
-                      <li key={key}>
-                        <a href={link.link} target="_blank" rel="noopener noreferrer">{link.text}</a>
-                      </li>
-                    );
+                <ul className={'nav navbar-nav navBarUL navbar-right'}>
+                  {slackUrl !== '' ? 
+                    (<li>
+                      <a className="social-media-btn" href={slackUrl} target="_blank" rel="noopener noreferrer">
+                        <span>Join us on</span>
+                        <img className="slack-icon" src={slackLogo} alt={'Twitter'} />
+                      </a>
+                    </li>) : null
                   }
-                  return null;
-                })}
-              </ul>
+                  {headerLinks.map((link, key) => {
+                    if(link.link !== '' && link.text !== '') {
+                      return(
+                        <li key={key}>
+                          <a href={link.link} target="_blank" rel="noopener noreferrer">{link.text}</a>
+                        </li>
+                      );
+                    }
+                    return null;
+                  })}
+                </ul>
             </div>
           </nav>
         </div>

@@ -7,17 +7,19 @@ const config = {
 	"header": {
 		"logoLink": "/",
 		"title": "Tutorials",
-		"githubUrl": "https://github.com/YugaByte/yugabyte-db/wiki",
 		"helpUrl": "",
-		"tweetText": "",
+		"githubUrl": "https://github.com/YugaByte/yugabyte-db",
+		"slackUrl": "https://www.yugabyte.com/slack",
+
 		"links": [
 			{ "text": "", "link": ""}
 		],
 	},
 	"sidebar": {
 		"forcedNavOrder": [
-			"/introduction",
-			"/ysql/Home"
+			"/ysql/Home",
+			"/fundamentals",
+			"/ysql"
 		],
 		"links": [
 			{ "text": "YugaByte DB", "link": "https://yugabyte.com"},

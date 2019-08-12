@@ -130,14 +130,17 @@ body {
   line-height: 1em;
   opacity: 1;
 }
+
+.navBarUL li .social-media-btn {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  border: 1px solid #fff;
+  border-radius: 0.4em;
+  padding: 0.35em 0.94em 0.2em;
+}
 .navBarUL
 {
   display: flex;
   align-items: center;
-}
-.navBarUL li a img
-{
-  width: 20px;
 }
 .mainWrapper {
   color: rgb(59, 69, 78);
@@ -146,6 +149,11 @@ body {
 .navBarUL li a:hover {
   opacity: .7;
 }
+.slack-icon {
+  width: 5em;
+  vertical-align: middle;
+}
+
 pre {
   border: 0 !important;
   background-color: rgb(245, 247, 249); /* !important; */

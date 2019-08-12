@@ -168,7 +168,6 @@ export const pageQuery = graphql`
       }
       frontmatter {
         metaTitle
-        metaDescription
       }
     }
     allMdx {
