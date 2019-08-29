@@ -40,22 +40,6 @@ const config = {
 		{
 			"title": "Fundamentals of YSQL",
 			"description": "Step by step to learn how to install and use YugaByte SQL.",
-			"duration": "2 hrs"
-		},
-		{
-			"title": "Lorem ipsum dolor sit amet",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
-			"duration": "1.5 hrs"
-		},
-		{
-			"title": "Lorem ipsum dolor sit amet",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
-			"duration": "76 min"
-		},
-		{
-			"title": "Lorem ipsum dolor sit amet",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
-			"duration": "30 min"
 		}
 	]
 };
