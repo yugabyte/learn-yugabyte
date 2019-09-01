@@ -18,7 +18,8 @@ const config = {
 	"sidebar": {
 		"forcedNavOrder": [
 			"/ysql/Home",
-			"/fundamentals",
+			"/prerequisites",
+			"/joins",
 			"/ysql"
 		],
 		"links": [
