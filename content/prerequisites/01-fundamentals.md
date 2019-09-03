@@ -1,5 +1,6 @@
 ---
 title: "Fundamentals"
+metaTitle: "Fundamentals | YugaByte DB Tutorials"
 ---
 
 In this tutorial you’ll learn how to use YugaByte DB’s PostgreSQL-compatible YSQL interface to query data from the Northwind sample database using SELECT, FROM, ORDER BY, LIMIT and other basic clauses and operators. For detailed information concerning specific clauses or operators, please refer to the official [PostgreSQL documentation](https://www.postgresql.org/docs/).
