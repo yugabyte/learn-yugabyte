@@ -33,7 +33,7 @@ const config = {
 	"siteMetadata": {
 		"title": "YugaByte DB | Tutorials",
 		"description": "Documentation built with mdx. Powered by Hasura's Gatsby Gitbook project.",
-		"ogImage": null,
+		"ogImage": "https://download.yugabyte.com/statics/og-image.jpg",
 		"docsLocation": "https://github.com/YugaByte/yugabyte-db/wiki",
 		"favicon": "https://docs.yugabyte.com/images/favicon.ico"
 	},
