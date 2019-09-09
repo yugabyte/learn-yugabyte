@@ -55,7 +55,7 @@ const Layout = ({ children, location, courseData }) => (
       <Content>
         <LessonTable>
           {courseData.map((val, idx) => (
-            <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url='/ysql/Home' />
+            <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url={!val.disabled && (val.url || '/ysql/Home')} />
           ))}
         </LessonTable>
       </Content>

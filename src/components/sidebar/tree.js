@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import config from '../../../config';
 import TreeNode from './treeNode';
 
@@ -74,6 +74,21 @@ const Tree = ({edges}) => {
     return calculateTreeData(edges);
   });
   const [collapsed, setCollapsed] = useState({});
+  
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (query.has('collapsed')) {
+      const urlPath = window.location.pathname;
+      let currentSections = {...collapsed};
+      treeData.items.forEach(val => {
+        if (`${val.url}/` !== urlPath) {
+          currentSections[val.url] = true;
+        }
+      });
+      setCollapsed(currentSections);
+    }
+  }, window.location.search)
+
   const toggle = (url) => {
     setCollapsed({
       ...collapsed,
