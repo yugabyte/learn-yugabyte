@@ -570,6 +570,30 @@ img {
   border-bottom: 1px solid #ccc;
 }
 
+.run-code-snippet {
+  margin: 8px 0 0px;
+  padding: 5px 10px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  width: fit-content;
+  letter-spacing: -0.4px;
+  color: #FFF;
+  background-color: #202951;
+  box-shadow: inset 0 1px 0 #3b4045;
+  cursor: pointer;
+
+}
+
+#xterm-container.active {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+#xterm-container .terminal {
+  padding: 15px;
+}
+
 @media (max-width: 767px) {
   hr {
     margin-top: 0;

@@ -2,6 +2,8 @@ import * as React from "react";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import prismTheme from "prism-react-renderer/themes/vsDark";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
+import { Terminal } from 'xterm';
+import 'xterm/css/xterm.css';
 import '../styles.css';
 
 import Pre from "./pre";
@@ -20,78 +22,107 @@ function cleanTokens(tokens) {
 }
 
 /* eslint-disable react/jsx-key */
-const CodeBlock = ({ children: exampleCode, ...props }) => {
-  if (props["react-live"]) {
-    return (
-      <LiveProvider code={exampleCode}>
-        <LiveEditor />
-        <LiveError />
-        <LivePreview />
-      </LiveProvider>
-    );
-  } else {
-    return (
-      <Highlight
-        {...defaultProps}
-        code={exampleCode}
-        language="javascript"
-        theme={prismTheme}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <Pre className={className} style={style} p={3}>
-            {cleanTokens(tokens).map((line, i) => {
-              let lineClass = {};
-              let isDiff = false;
-              if (line[0] && line[0].content.length && line[0].content[0] === '+') {
-                lineClass = {'backgroundColor': 'rgba(76, 175, 80, 0.2)'};
-                isDiff = true;
-              }
-              else if (line[0] && line[0].content.length && line[0].content[0] === '-') {
-                lineClass = {'backgroundColor': 'rgba(244, 67, 54, 0.2)'};
-                isDiff = true;
-              }
-              else if(line[0] && line[0].content === '' && line[1] && line[1].content === '+') {
-                lineClass = {'backgroundColor': 'rgba(76, 175, 80, 0.2)'};
-                isDiff = true;
-              } else if(line[0] && line[0].content === ''&& line[1] && line[1].content === '-') {
-                lineClass = {'backgroundColor': 'rgba(244, 67, 54, 0.2)'};
-                isDiff = true;
-              }
-              const lineProps = getLineProps({line, key: i});
-              lineProps.style = lineClass;
-              const diffStyle = {'userSelect': 'none', 'MozUserSelect': '-moz-none', 'WebkitUserSelect': 'none'};
-              let splitToken;
-              return (
-                <div {...lineProps}>
-                  {line.map((token, key) => {
-                    if(isDiff) {
-                      if ((key === 0 || key === 1) & (token.content.charAt(0) === '+' || token.content.charAt(0) === '-')) {
-                        if(token.content.length > 1) {
-                          splitToken = { 'types': ['template-string','string'], 'content': token.content.slice(1)};
-                          const firstChar = { 'types': ['operator'], 'content': token.content.charAt(0)};
-                          return (
-                            <React.Fragment>
-                              <span {...getTokenProps({ token: firstChar, key })} style={diffStyle} />
-                              <span {...getTokenProps({ token: splitToken, key })} />
-                            </React.Fragment>
-                          )
-                        } else {
-                          return (
-                              <span {...getTokenProps({ token, key })} style={diffStyle} />
-                          )
+class CodeBlock extends React.Component {
 
+  handleOpenTerminal = (initialCode = '') => {
+    const term = new Terminal({
+      rows: 8,
+    });
+    window.term = term;
+    term.open(document.getElementById('xterm-container'));
+    document.getElementById('xterm-container').classList.add('active')
+    term.writeln('Hello from \x1B[1;3;31mxterm.js\x1B[0m');
+    term.write('$ ' + initialCode.trim());
+    term.onKey((ev) => {
+      if (ev.domEvent.key === 'Backspace') {
+        if (term.buffer.cursorX > 2) {
+          term.write('\b \b');
+        }
+      } else if (ev.domEvent.key === 'Enter') {
+        term.write('\r\n$ ');
+      } else {
+        term.write(ev.key)
+      }
+    });
+  }
+
+  render() {
+    const { children: exampleCode, ...props } = this.props;
+    if (props["react-live"]) {
+      return (
+        <LiveProvider code={exampleCode}>
+          <LiveEditor />
+          <LiveError />
+          <LivePreview />
+        </LiveProvider>
+      );
+    } else {
+      return (
+        <div>
+        <Highlight
+          {...defaultProps}
+          code={exampleCode}
+          language="javascript"
+          theme={prismTheme}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Pre className={className} style={style} p={3}>
+              {cleanTokens(tokens).map((line, i) => {
+                let lineClass = {};
+                let isDiff = false;
+                if (line[0] && line[0].content.length && line[0].content[0] === '+') {
+                  lineClass = {'backgroundColor': 'rgba(76, 175, 80, 0.2)'};
+                  isDiff = true;
+                }
+                else if (line[0] && line[0].content.length && line[0].content[0] === '-') {
+                  lineClass = {'backgroundColor': 'rgba(244, 67, 54, 0.2)'};
+                  isDiff = true;
+                }
+                else if(line[0] && line[0].content === '' && line[1] && line[1].content === '+') {
+                  lineClass = {'backgroundColor': 'rgba(76, 175, 80, 0.2)'};
+                  isDiff = true;
+                } else if(line[0] && line[0].content === ''&& line[1] && line[1].content === '-') {
+                  lineClass = {'backgroundColor': 'rgba(244, 67, 54, 0.2)'};
+                  isDiff = true;
+                }
+                const lineProps = getLineProps({line, key: i});
+                lineProps.style = lineClass;
+                const diffStyle = {'userSelect': 'none', 'MozUserSelect': '-moz-none', 'WebkitUserSelect': 'none'};
+                let splitToken;
+                return (
+                  <div {...lineProps}>
+                    {line.map((token, key) => {
+                      if(isDiff) {
+                        if ((key === 0 || key === 1) & (token.content.charAt(0) === '+' || token.content.charAt(0) === '-')) {
+                          if(token.content.length > 1) {
+                            splitToken = { 'types': ['template-string','string'], 'content': token.content.slice(1)};
+                            const firstChar = { 'types': ['operator'], 'content': token.content.charAt(0)};
+                            return (
+                              <React.Fragment>
+                                <span {...getTokenProps({ token: firstChar, key })} style={diffStyle} />
+                                <span {...getTokenProps({ token: splitToken, key })} />
+                              </React.Fragment>
+                            )
+                          } else {
+                            return (
+                                <span {...getTokenProps({ token, key })} style={diffStyle} />
+                            )
+
+                          }
                         }
                       }
-                    }
-                    return (<span {...getTokenProps({ token, key })} />)
-                   } )}
-                </div>
-            )})}
-          </Pre>
-        )}
-      </Highlight>
-    );
+                      return (<span {...getTokenProps({ token, key })} />)
+                    } )}
+                  </div>
+              )})}
+            </Pre>
+          )}
+        </Highlight>
+        <div className="run-code-snippet" onClick={() => this.handleOpenTerminal(exampleCode)}>Run in terminal</div>
+      </div>
+      );
+    }
   }
-};
+}
 
 export default CodeBlock;

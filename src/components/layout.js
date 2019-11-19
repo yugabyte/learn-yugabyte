@@ -56,6 +56,7 @@ const Layout = ({ children, location }) => (
         </RightSideBarWidth>
       </Wrapper>
     </MDXProvider>
+    <div id="xterm-container"></div>
   </ThemeProvider>
 );
 

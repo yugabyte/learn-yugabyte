@@ -40,7 +40,8 @@
     "react-github-btn": "^1.0.5",
     "react-helmet": "^5.2.0",
     "react-live": "^2.0.1",
-    "system-components": "^3.0.3"
+    "system-components": "^3.0.3",
+    "xterm": "^4.2.0-vscode1"
   },
   "license": "Apache 2.0",
   "main": "n/a",
