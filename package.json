@@ -47,7 +47,7 @@
   "main": "n/a",
   "scripts": {
     "start": "gatsby develop",
-    "build": "gatsby build --prefix-paths",
+    "build": "gatsby build",
     "publish": "npm run build && aws s3 rm s3://learn.yugabyte.com --recursive && aws s3 sync public/ s3://learn.yugabyte.com"
   },
   "devDependencies": {

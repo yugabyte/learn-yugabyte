@@ -8,6 +8,8 @@ import 'xterm/css/xterm.css';
 import '../styles.css';
 import Pre from "./pre";
 
+const isClient = typeof window !== `undefined`;
+
 /** Removes the last token from a code example if it's empty. */
 function cleanTokens(tokens) {
   const tokensLength = tokens.length;
@@ -85,7 +87,7 @@ class CodeBlock extends React.Component {
       );
     } else {
       const formattedCode = exampleCode.split('\n').join('\r\n  ');
-      const shell = document.getElementById('shell-editor');
+      const shell = isClient ? document.getElementById('shell-editor') : null;
       const showTerminal = this.state.terminalAlive && !this.state.terminalMinimized;
       return (
         <div>

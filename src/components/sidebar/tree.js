@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import config from '../../../config';
 import TreeNode from './treeNode';
 
+const isClient = typeof window !== 'undefined';
+
 const calculateTreeData = edges => {
   const originalData = config.sidebar.ignoreIndex ? edges.filter(({node: {fields: {slug}}}) => slug !== '/') : edges;
   const tree = originalData.reduce((accu, {node: {fields: {slug, title}}}) => {
@@ -76,8 +78,8 @@ const Tree = ({edges}) => {
   const [collapsed, setCollapsed] = useState({});
   
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    if (query.has('collapsed')) {
+    const query = isClient ? new URLSearchParams(window.location.search) : null;
+    if (query && query.has('collapsed')) {
       const urlPath = window.location.pathname;
       let currentSections = {...collapsed};
       treeData.items.forEach(val => {
@@ -87,7 +89,7 @@ const Tree = ({edges}) => {
       });
       setCollapsed(currentSections);
     }
-  }, window.location.search)
+  }, isClient ? window.location.search : [])
 
   const toggle = (url) => {
     setCollapsed({

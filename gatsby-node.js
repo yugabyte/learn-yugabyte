@@ -63,13 +63,25 @@ exports.createPages = ({ graphql, page, actions }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, "src"), "node_modules"],
       alias: { $components: path.resolve(__dirname, "src/components") }
     }
   });
+  if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /xterm/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
 };
 
 exports.onCreateBabelConfig = ({ actions }) => {
