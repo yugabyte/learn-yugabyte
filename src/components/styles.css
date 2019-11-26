@@ -584,10 +584,38 @@ img {
 
 }
 
+#xterm-container {
+  display: none;
+}
+
 #xterm-container.active {
+  display: block;
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+#xterm-container.active .xterm-viewport {
+  overflow: hidden;
+}
+
+#shell-editor .shell-toolbar {
+  position: fixed;
+  bottom: 200px;
+  height: 40px;
+  width: 100%;
+  background: #eee;
+  border: 1px solid darkgrey;
+}
+
+#shell-editor .shell-toolbar.minimized {
+  bottom: 0;
+}
+
+.shell-toolbar img {
+  height: 20px;
+  width: 15px;
+  margin: 10px 30px;
 }
 
 #xterm-container .terminal {

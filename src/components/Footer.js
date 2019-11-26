@@ -91,9 +91,9 @@ const Footer = () => (
     <List>
       <FooterItem>
           <div style={{paddingTop: '10px'}}>
-            <img width="50px" height="30px" alt="YugaByte DB logo" src={YBLogo} />
+            <img width="50px" height="30px" alt="Yugabyte DB logo" src={YBLogo} />
             <Copyright>
-              <div style={{marginBottom: '3px'}}>© 2019 YugaByte, Inc.</div>
+              <div style={{marginBottom: '3px'}}>© 2019 Yugabyte, Inc.</div>
               <AnchorTag href="https://www.yugabyte.com/privacy-policy/">Privacy Policy</AnchorTag>
             </Copyright>
           </div>
@@ -105,7 +105,7 @@ const Footer = () => (
         <AnchorTag href="https://www.yugabyte.com/yugabytedb">OPEN SOURCE</AnchorTag>
       </FooterItem>
       <FooterItem>
-        <AnchorTag href="https://github.com/YugaByte/yugabyte-db">GITHUB</AnchorTag>
+        <AnchorTag href="https://github.com/Yugabyte/yugabyte-db">GITHUB</AnchorTag>
       </FooterItem>
       <FooterItem>
         <FooterTitle>Address</FooterTitle>
@@ -135,9 +135,9 @@ export default Footer;
             <ul class="footer-nav">
               <li class="footer-items" >
                 <div class="logo-white">
-                  <img width="50px" height="30px" alt="YugaByte DB logo" src="../assets/ybsymbol-white.svg" />
+                  <img width="50px" height="30px" alt="Yugabyte DB logo" src="../assets/ybsymbol-white.svg" />
                   <div class="copyright">
-                    <div style="margin-bottom: 3px">© 2019 YugaByte, Inc.</div>
+                    <div style="margin-bottom: 3px">© 2019 Yugabyte, Inc.</div>
                     <a href="https://www.yugabyte.com/privacy-policy/">Privacy Policy</a>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default Footer;
                 <a target="_blank" class="footer-link" href="https://www.yugabyte.com/yugabytedb" rel="noopener">Open Source</a>
               </li>
               <li class="footer-items" data-footer="community-links">
-                <a target="_blank" class="footer-link" href="https://github.com/YugaByte/yugabyte-db" rel="noopener">GitHub</a>
+                <a target="_blank" class="footer-link" href="https://github.com/Yugabyte/yugabyte-db" rel="noopener">GitHub</a>
               </li>
               <li class="footer-items" data-footer="address">
                 <div class="footer-title">Address</div>

@@ -48,14 +48,14 @@ const Layout = ({ children, location, courseData }) => (
     <MainPanel>
       <HeaderContainer>
         <WelcomeSection>
-          <h1>Welcome to YugaByte DB Tutorials!</h1>
-          <p>Learn YugaByte DB and more through these guided lessons.</p>  
+          <h1>Welcome to Yugabyte DB Tutorials!</h1>
+          <p>Learn Yugabyte DB and more through these guided lessons.</p>  
         </WelcomeSection>
       </HeaderContainer>
       <Content>
         <LessonTable>
           {courseData.map((val, idx) => (
-            <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url={!val.disabled && (val.url || '/ysql/Home')} />
+            <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url={!val.disabled && (val.url || '/prerequisites')} />
           ))}
         </LessonTable>
       </Content>

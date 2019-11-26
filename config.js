@@ -8,7 +8,7 @@ const config = {
 		"logoLink": "/",
 		"title": "Tutorials",
 		"helpUrl": "",
-		"githubUrl": "https://github.com/YugaByte/yugabyte-db",
+		"githubUrl": "https://github.com/Yugabyte/yugabyte-db",
 		"slackUrl": "https://www.yugabyte.com/slack",
 
 		"links": [
@@ -17,14 +17,13 @@ const config = {
 	},
 	"sidebar": {
 		"forcedNavOrder": [
-			"/ysql/Home",
 			"/prerequisites",
 			"/fundamentals",
 			"/joins",
 			"/ysql"
 		],
 		"links": [
-			{ "text": "YugaByte DB", "link": "https://yugabyte.com"},
+			{ "text": "Yugabyte DB", "link": "https://yugabyte.com"},
 			{ "text": "GitHub", "link": "https://github.com/yugabyte/yugabyte-db"},
 			{ "text": "Slack", "link": "https://www.yugabyte.com/slack"},
 		],
@@ -32,16 +31,16 @@ const config = {
 		"ignoreIndex": true,
 	},
 	"siteMetadata": {
-		"title": "YugaByte DB | Tutorials",
+		"title": "Yugabyte DB | Tutorials",
 		"description": "Documentation built with mdx. Powered by Hasura's Gatsby Gitbook project.",
 		"ogImage": "https://download.yugabyte.com/statics/og-image.jpg",
-		"docsLocation": "https://github.com/YugaByte/yugabyte-db/tree/master/community/learn/content",
+		"docsLocation": "https://github.com/Yugabyte/yugabyte-db/tree/master/community/learn/content",
 		"favicon": "https://docs.yugabyte.com/images/favicon.ico"
 	},
 	"courses": [
 		{
 			"title": "Fundamentals of YSQL",
-			"description": "Step by step to learn how to install and use YugaByte SQL.",
+			"description": "Step by step to learn how to install and use Yugabyte SQL.",
 			"url": "/fundamentals"
 		},
 		{

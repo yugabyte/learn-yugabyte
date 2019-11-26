@@ -1,9 +1,9 @@
-# Learn YugaByte DB and Distributed SQL
+# Learn Yugabyte DB and Distributed SQL
 Collection of tutorials geared toward distributed SQL.
 
 ## Installation & Running
 Install repository and its submodules.
-`git clone --recurse submodules -j8 https://github.com/YugaByte/learn-yugabyte.git`
+`git clone --recurse submodules -j8 https://github.com/Yugabyte/learn-yugabyte.git`
 
 Install dependencies `npm install`
 

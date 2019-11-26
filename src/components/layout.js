@@ -5,6 +5,9 @@ import ThemeProvider from "./themeProvider";
 import mdxComponents from "./mdxComponents";
 import Sidebar from "./sidebar";
 import RightSidebar from "./rightSidebar";
+import Terminal from "./Terminal";
+
+export const globalState = {};
 
 const Wrapper = styled('div')`
   display: flex;
@@ -56,7 +59,7 @@ const Layout = ({ children, location }) => (
         </RightSideBarWidth>
       </Wrapper>
     </MDXProvider>
-    <div id="xterm-container"></div>
+    <div id="shell-editor"></div>
   </ThemeProvider>
 );
 
