@@ -1,4 +1,4 @@
-This table documents the compatibility of Yugabyte DB against a comprehensive list of PostgreSQL commands and syntax. In the first column you can find a links with the queries you'll need to test the compatibility yourself.
+This table documents the compatibility of YugabyteDB against a comprehensive list of PostgreSQL commands and syntax. In the first column you can find a links with the queries you'll need to test the compatibility yourself.
 
 |  **Functional Category** | **Feature** | **Yugabyte 1.3** | **Notes** |
 | :---: | :--- | :---: | :---: |

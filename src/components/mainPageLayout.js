@@ -48,8 +48,8 @@ const Layout = ({ children, location, courseData }) => (
     <MainPanel>
       <HeaderContainer>
         <WelcomeSection>
-          <h1>Welcome to Yugabyte DB Tutorials!</h1>
-          <p>Learn Yugabyte DB and more through these guided lessons.</p>  
+          <h1>Welcome to YugabyteDB Tutorials!</h1>
+          <p>Learn YugabyteDB and more through these guided lessons.</p>  
         </WelcomeSection>
       </HeaderContainer>
       <Content>

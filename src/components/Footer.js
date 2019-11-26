@@ -91,7 +91,7 @@ const Footer = () => (
     <List>
       <FooterItem>
           <div style={{paddingTop: '10px'}}>
-            <img width="50px" height="30px" alt="Yugabyte DB logo" src={YBLogo} />
+            <img width="50px" height="30px" alt="YugabyteDB logo" src={YBLogo} />
             <Copyright>
               <div style={{marginBottom: '3px'}}>© 2019 Yugabyte, Inc.</div>
               <AnchorTag href="https://www.yugabyte.com/privacy-policy/">Privacy Policy</AnchorTag>
@@ -135,7 +135,7 @@ export default Footer;
             <ul class="footer-nav">
               <li class="footer-items" >
                 <div class="logo-white">
-                  <img width="50px" height="30px" alt="Yugabyte DB logo" src="../assets/ybsymbol-white.svg" />
+                  <img width="50px" height="30px" alt="YugabyteDB logo" src="../assets/ybsymbol-white.svg" />
                   <div class="copyright">
                     <div style="margin-bottom: 3px">© 2019 Yugabyte, Inc.</div>
                     <a href="https://www.yugabyte.com/privacy-policy/">Privacy Policy</a>

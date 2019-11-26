@@ -23,7 +23,7 @@ const config = {
 			"/ysql"
 		],
 		"links": [
-			{ "text": "Yugabyte DB", "link": "https://yugabyte.com"},
+			{ "text": "YugabyteDB", "link": "https://yugabyte.com"},
 			{ "text": "GitHub", "link": "https://github.com/yugabyte/yugabyte-db"},
 			{ "text": "Slack", "link": "https://www.yugabyte.com/slack"},
 		],
@@ -31,7 +31,7 @@ const config = {
 		"ignoreIndex": true,
 	},
 	"siteMetadata": {
-		"title": "Yugabyte DB | Tutorials",
+		"title": "YugabyteDB | Tutorials",
 		"description": "Documentation built with mdx. Powered by Hasura's Gatsby Gitbook project.",
 		"ogImage": "https://download.yugabyte.com/statics/og-image.jpg",
 		"docsLocation": "https://github.com/Yugabyte/yugabyte-db/tree/master/community/learn/content",

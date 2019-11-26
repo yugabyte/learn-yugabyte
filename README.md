@@ -1,4 +1,4 @@
-# Learn Yugabyte DB and Distributed SQL
+# Learn YugabyteDB and Distributed SQL
 Collection of tutorials geared toward distributed SQL.
 
 ## Installation & Running
