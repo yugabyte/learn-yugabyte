@@ -7,7 +7,7 @@ Collection of tutorials geared toward distributed SQL.
 `npm ci`
 
 ### Fetch contents
-`npm run update`
+`npm run fetch-content`
 
 ### Start Local server
 `npm start` Site will be accessible at `localhost:8000`

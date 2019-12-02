@@ -48,7 +48,7 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "update": "svn export https://github.com/yugabyte/yugabyte-db/trunk/community/learn/content content --force"
+    "fetch-content": "rm -rf yugabyte-db && git clone --depth=1 https://github.com/yugabyte/yugabyte-db.git && rsync -av yugabyte-db/community/learn/content/ content/"
   },
   "devDependencies": {
     "gatsby-plugin-remove-trailing-slashes": "^2.0.11",
