@@ -83,7 +83,7 @@ const Tree = ({edges}) => {
       const urlPath = window.location.pathname;
       let currentSections = {...collapsed};
       treeData.items.forEach(val => {
-        if (val.url === urlPath || `${val.url}/` !== urlPath) {
+        if (val.url !== urlPath && `${val.url}/` !== urlPath) {
           currentSections[val.url] = true;
         }
       });
@@ -97,6 +97,7 @@ const Tree = ({edges}) => {
       [url]: !collapsed[url],
     });
   }
+  console.log(collapsed);
   return (
     <TreeNode
       className={`${config.sidebar.frontLine ? 'showFrontLine' : 'hideFrontLine'} firstLevel`}
