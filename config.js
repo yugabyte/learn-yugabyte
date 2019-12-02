@@ -20,7 +20,7 @@ const config = {
 			"/prerequisites",
 			"/fundamentals",
 			"/joins",
-			"/ysql"
+			"/sample-apps"
 		],
 		"links": [
 			{ "text": "YugabyteDB", "link": "https://yugabyte.com"},

@@ -60,7 +60,7 @@ const Card = ({title, description, url }) => {
           {description && <div className="separation-line"></div>}
           {description && <Description>{description}</Description>}
         </Link>
-        {url && <StartButton href={url + '/?collapsed=true'}>
+        {url && <StartButton href={url + '?collapsed=true'}>
           Start
           </StartButton>
         }
