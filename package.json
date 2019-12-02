@@ -48,8 +48,7 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "update": "svn export https://github.com/yugabyte/yugabyte-db/trunk/community/learn/content content --force",
-    "publish": "npm run build && aws s3 rm s3://learn.yugabyte.com --recursive && aws s3 sync public/ s3://learn.yugabyte.com"
+    "fetch-content": "rm -rf yugabyte-db && git clone --depth=1 https://github.com/yugabyte/yugabyte-db.git && rsync -av yugabyte-db/community/learn/content/ content/"
   },
   "devDependencies": {
     "gatsby-plugin-remove-trailing-slashes": "^2.0.11",
