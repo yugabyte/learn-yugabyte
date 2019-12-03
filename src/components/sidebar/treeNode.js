@@ -4,14 +4,15 @@ import ClosedSvg from '../images/closed';
 import config from '../../../config';
 import Link from "../link";
 
-const TreeNode = ({className = '', setCollapsed, collapsed, url, title, items, location, ...rest}) => {
+const isClient = typeof window !== `undefined`;
+
+const TreeNode = ({className = '', setCollapsed, collapsed, url, title, items }) => {
   const isCollapsed = collapsed[url];
   const collapse = () => {
     setCollapsed(url);
   }
   const hasChildren = items.length !== 0;
-  const active =
-    location && (location.pathname === url || location.pathname === (config.gatsby.pathPrefix + url));
+  const active = isClient && (window.location.pathname === url || window.location.pathname === `${url}/` || window.location.pathname === (config.gatsby.pathPrefix + url));
   const calculatedClassName = `${className} item ${active ? 'active' : ''}`;
   return (
     <li

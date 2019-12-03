@@ -89,7 +89,7 @@ const Tree = ({edges}) => {
       });
       setCollapsed(currentSections);
     }
-  }, isClient ? window.location.search : [])
+  }, [])
 
   const toggle = (url) => {
     setCollapsed({
@@ -97,7 +97,6 @@ const Tree = ({edges}) => {
       [url]: !collapsed[url],
     });
   }
-  console.log(collapsed);
   return (
     <TreeNode
       className={`${config.sidebar.frontLine ? 'showFrontLine' : 'hideFrontLine'} firstLevel`}
