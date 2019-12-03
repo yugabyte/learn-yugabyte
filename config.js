@@ -23,6 +23,7 @@ const config = {
 			"/sample-apps"
 		],
 		"links": [
+			{ "text": "YugabyteDB PostgreSQL Compatibility", "link": "https://github.com/YugaByte/yugabyte-db/wiki/YugaByte-DB-PostgreSQL-Compatibility"},
 			{ "text": "YugabyteDB", "link": "https://yugabyte.com"},
 			{ "text": "GitHub", "link": "https://github.com/yugabyte/yugabyte-db"},
 			{ "text": "Slack", "link": "https://www.yugabyte.com/slack"},
