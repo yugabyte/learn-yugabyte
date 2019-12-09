@@ -6,7 +6,7 @@ const config = {
 	},
 	"header": {
 		"logoLink": "/",
-		"title": "Tutorials",
+		"title": "",
 		"helpUrl": "",
 		"githubUrl": "https://github.com/Yugabyte/yugabyte-db",
 		"slackUrl": "https://www.yugabyte.com/slack",
@@ -23,7 +23,6 @@ const config = {
 			"/sample-apps"
 		],
 		"links": [
-			{ "text": "YugabyteDB PostgreSQL Compatibility", "link": "https://github.com/YugaByte/yugabyte-db/wiki/YugaByte-DB-PostgreSQL-Compatibility"},
 			{ "text": "YugabyteDB", "link": "https://yugabyte.com"},
 			{ "text": "GitHub", "link": "https://github.com/yugabyte/yugabyte-db"},
 			{ "text": "Slack", "link": "https://www.yugabyte.com/slack"},
@@ -32,7 +31,7 @@ const config = {
 		"ignoreIndex": true,
 	},
 	"siteMetadata": {
-		"title": "YugabyteDB | Tutorials",
+		"title": "Learn YugabyteDB",
 		"description": "Documentation built with mdx. Powered by Hasura's Gatsby Gitbook project.",
 		"ogImage": "https://download.yugabyte.com/statics/og-image.jpg",
 		"docsLocation": "https://github.com/Yugabyte/yugabyte-db/tree/master/community/learn/content",
@@ -41,66 +40,79 @@ const config = {
 	"courses": [
 		{
 			"title": "Fundamentals of YSQL",
+			"category": "YSQL Basics",
 			"description": "Step by step to learn how to install and use Yugabyte SQL.",
 			"url": "/fundamentals"
 		},
 		{
 			"title": "JOINs",
+			"category": "YSQL Basics",
 			"description": "Learn how to use YSQL interface to query data and handle JOINs.",
 			"url": "/joins"
 		},
 		{
 			"title": "Table Management",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Constraints",
+			"category": "YSQL Basics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Datatypes",
+			"category": "YSQL Basics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Schemas",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Expressions & Operators",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Stored Procedures",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Indexes",
+			"category": "YSQL Basics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Views",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Window Functions",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Extensions",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		},
 		{
 			"title": "Database Management",
+			"category": "YSQL Advanced Topics",
 			"description": "Coming soon!",
 			"disabled": true
 		}

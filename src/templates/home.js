@@ -54,7 +54,7 @@ export default class MDXRuntimeTest extends Component {
     return (
       <div className="home-layout">
         <Helmet>
-          {title ? <title>{title}</title> : null }
+          {title ? <title>{'Home | ' + title}</title> : null }
           {title ? <meta name="title" content={title} /> : null}
           {description ? <meta name="description" content={description} /> : null}
           {title ? <meta property="og:title" content={title} /> : null}

@@ -1,7 +1,7 @@
 {
   "name": "learn-yugabyte",
   "private": true,
-  "description": "Collection of tutorials geared toward distributed SQL.",
+  "description": "Collection of lessons geared toward distributed SQL.",
   "author": "Andrew Cai <andrew@yugabyte.com>",
   "version": "0.0.1",
   "dependencies": {
@@ -37,9 +37,9 @@
     "react-dom": "^16.8.6",
     "react-emotion": "^9.1.3",
     "react-feather": "^1.1.6",
-    "react-github-btn": "^1.0.5",
     "react-helmet": "^5.2.0",
     "react-live": "^2.0.1",
+    "react-select": "^3.0.8",
     "system-components": "^3.0.3",
     "xterm": "^4.2.0-vscode1"
   },

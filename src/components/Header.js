@@ -1,9 +1,9 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import GitHubButton from 'react-github-btn'
 import Link from "./link";
 import ybLogo from './images/yb-horizontal-alt-logo.png';
 import slackLogo from './images/slack-white.svg';
+import githubLogo from './images/github-white.svg';
 import './styles.css';
 
 import Sidebar from "./sidebar";
@@ -62,18 +62,19 @@ const Header = ({location}) => (
                 <Sidebar location={location} />
                 <hr/>
               </div>
-                <ul className={'nav navbar-nav navBarUL'}>
-                  {githubUrl !== '' ?
-                    (<li className={'githubBtn'}>
-                      <GitHubButton href={githubUrl} data-show-count="true" aria-label="Star on GitHub">Star</GitHubButton>
-                    </li>) : null}
-                </ul>
                 <ul className={'nav navbar-nav navBarUL navbar-right'}>
+                  {githubUrl !== '' ?
+                    (<li class="github-container">
+                      <a className="social-media-btn" href={githubUrl} target="_blank" rel="noopener noreferrer">
+                        <span>Star on</span>
+                        <img className="github-icon" src={githubLogo} alt={'Github'} />
+                      </a>
+                    </li>) : null}
                   {slackUrl !== '' ? 
                     (<li>
                       <a className="social-media-btn" href={slackUrl} target="_blank" rel="noopener noreferrer">
-                        <span>Join us on</span>
-                        <img className="slack-icon" src={slackLogo} alt={'Twitter'} />
+                        <span>Join on</span>
+                        <img className="slack-icon" src={slackLogo} alt={'Slack'} />
                       </a>
                     </li>) : null
                   }

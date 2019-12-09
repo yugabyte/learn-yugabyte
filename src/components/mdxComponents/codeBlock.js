@@ -37,6 +37,8 @@ class CodeBlock extends React.Component {
       document.getElementById('shell-editor').innerHTML = '';
     }
 
+    fetch('http://127.0.0.1:9000/api/v1/insecure_login').then(response => console.log(response));
+
     this.setState({
       terminalAlive: true,
       terminalMinimized: false,

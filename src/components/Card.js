@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import styled from "react-emotion";
 
 const Container = styled('div')`
@@ -7,11 +6,11 @@ const Container = styled('div')`
     border-radius: 4px;
     vertical-align: top;
     background: #fff;
-    flex: 1 0 330px;
+    flex: 1 0 28%;
     flex-direction: column;
-    margin: 0 0 18px 0;
-    max-width: 330px;
-    width: 32%;
+    margin: 0 18px 18px 0;
+    max-width: 320px;
+    width: 28%;
     position: relative;
 `;
 
@@ -55,11 +54,9 @@ const StartButton = styled('a')`
 const Card = ({title, description, url }) => {
     return (
       <Container>
-        <Link style={{textDecoration: 'none', cursor: 'pointer'}} to={url}>
-          {title && <Title>{title}</Title>}
-          {description && <div className="separation-line"></div>}
-          {description && <Description>{description}</Description>}
-        </Link>
+        {title && <Title>{title}</Title>}
+        {description && <div className="separation-line"></div>}
+        {description && <Description>{description}</Description>}
         {url && <StartButton href={url + '?collapsed=true'}>
           Start
           </StartButton>

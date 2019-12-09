@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap');
+
 body {
-  font-family: 'Open Sans', 'Helvetica', 'Arial', 'sans-serif';
+  font-family: 'Open Sans', 'Helvetica', 'Arial', 'sans-serif' !important;
   height: 100vh;
   margin: 0;
 }
@@ -136,7 +137,18 @@ body {
   border: 1px solid #fff;
   border-radius: 0.4em;
   padding: 0.35em 0.94em 0.2em;
+  margin-left: 15px;
+  height: 42px;
 }
+
+.github-container .social-media-btn {
+  padding: 0.5em 1.5em;
+}
+
+.github-container .social-media-btn span {
+  vertical-align: bottom;
+}
+
 .navBarUL
 {
   display: flex;
@@ -154,9 +166,20 @@ body {
   vertical-align: middle;
 }
 
+.github-icon {
+  width: 1.5em;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
 pre {
   border: 0 !important;
   background-color: rgb(245, 247, 249); /* !important; */
+}
+
+.welcome-description {
+  line-height: 32px;
+  margin-right: 32px;
 }
 
 .mainWrapper ul, .mainWrapper ol {
@@ -174,6 +197,15 @@ pre {
 }
 
 /* Header section ends here */
+#filters {
+  display: flex;
+  padding: 24px 0;
+}
+
+.sorting-active {
+  border-bottom: 2px solid #383838;
+}
+
 .headerNav {
   font-family: 'Roboto';
   padding: 0px 24px;
