@@ -16,7 +16,7 @@ export default {
   h6: props => <Heading id={props.children.toString().replace(/\s+/g, '').toLowerCase()} {...props} is="h6" fontSize={0} />,
   p: props => <Text {...props} is="p" lineHeight={1.625} mt={3} mb={4} />,
   pre: Pre,
-  code: CodeBlock,
+  code: props => <CodeBlock {...props} />,
   inlineCode: props => <Code {...props} />,
   a: props => <AnchorTag {...props} />
   // TODO add `img`

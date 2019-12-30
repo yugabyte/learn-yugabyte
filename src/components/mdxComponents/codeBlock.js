@@ -1,14 +1,11 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import prismTheme from "prism-react-renderer/themes/vsDark";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
-import { Terminal } from 'xterm';
+import { useTerminal } from '../terminalContext';
 import 'xterm/css/xterm.css';
 import '../styles.css';
 import Pre from "./pre";
-
-const isClient = typeof window !== `undefined`;
 
 /** Removes the last token from a code example if it's empty. */
 function cleanTokens(tokens) {
@@ -23,74 +20,29 @@ function cleanTokens(tokens) {
   return tokens;
 }
 
-/* eslint-disable react/jsx-key */
-class CodeBlock extends React.Component {
-  state = {
-    terminalAlive: false,
-    terminalMinimized: false,
-  }
-
-  handleOpenTerminal = (initialCode = '') => {
-    // If there is an existing terminal open, destroy instance and remove dom nodes.
-    if (window.term) {
-      window.term.dispose();
-      document.getElementById('shell-editor').innerHTML = '';
+function CodeBlock(props) {
+  const { children: exampleCode, ...otherProps } = props;
+  if (otherProps["react-live"]) {
+    return (
+      <LiveProvider code={exampleCode}>
+        <LiveEditor />
+        <LiveError />
+        <LivePreview />
+      </LiveProvider>
+    );
+  } else {
+    const formattedCode = exampleCode.split('\n').join('\r\n  ');
+    const showConsole = props.console !== 'false';
+    const [terminalStatus, setTerminalStatus] = useTerminal();
+    const handleOpenTerminal = (code) => {
+      console.log('clicked open terminal')
+      setTerminalStatus({
+        code,
+        alive: true,
+        minimized: false,
+      });
     }
 
-    fetch('http://127.0.0.1:9000/api/v1/insecure_login').then(response => console.log(response));
-
-    this.setState({
-      terminalAlive: true,
-      terminalMinimized: false,
-    }, () => {
-      const term = new Terminal({
-        rows: 10,
-      });
-      window.term = term;
-      term.open(document.getElementById('xterm-container'));
-      document.getElementById('xterm-container').classList.add('active');
-      term.writeln('Hello from \x1B[1;3;33mYugabyteDB\x1B[0m! Enter your commands below.');
-      term.write('$ ' + initialCode.trim());
-      term.onKey((ev) => {
-        if (ev.domEvent.key === 'Backspace') {
-          if (term.buffer.cursorX > 2) {
-            term.write('\b \b');
-          }
-        } else if (ev.domEvent.key === 'Enter') {
-          term.write('\r\n\x1B[31mYugabyteDB currently not figured. Please setup a local installation of yugabyted\x1B[0m\r\n$ ');
-        } else {
-          term.write(ev.key)
-        }
-      });
-    });
-  }
-
-  handleMinimizeTerminal = () => {
-    this.setState({terminalMinimized: true});
-  }
-
-  handleShowTerminal = () => {
-    this.setState({terminalMinimized: false});
-  }
-
-  handleCloseTerminal = () => {
-    this.setState({terminalAlive: false});
-  }
-
-  render() {
-    const { children: exampleCode, ...props } = this.props;
-    if (props["react-live"]) {
-      return (
-        <LiveProvider code={exampleCode}>
-          <LiveEditor />
-          <LiveError />
-          <LivePreview />
-        </LiveProvider>
-      );
-    } else {
-      const formattedCode = exampleCode.split('\n').join('\r\n  ');
-      const shell = isClient ? document.getElementById('shell-editor') : null;
-      const showTerminal = this.state.terminalAlive && !this.state.terminalMinimized;
       return (
         <div>
         <Highlight
@@ -152,24 +104,9 @@ class CodeBlock extends React.Component {
             </Pre>
           )}
         </Highlight>
-        <div className="run-code-snippet" onClick={() => this.handleOpenTerminal(formattedCode)}>Run in terminal</div>
-        {this.state.terminalAlive && ReactDOM.createPortal(
-          <div>
-            <div className={this.state.terminalMinimized ? "shell-toolbar minimized" : "shell-toolbar"}>
-              {this.state.terminalMinimized ? 
-                <img onClick={this.handleShowTerminal} src="https://cdns.iconmonstr.com/wp-content/assets/preview/2018/240/iconmonstr-maximize-thin.png" />
-                :
-                <img onClick={this.handleMinimizeTerminal} src="https://cdn0.iconfinder.com/data/icons/pixel-perfect-at-24px-volume-3/24/5008-512.png" alt="Minimize shell editor"/>
-              }
-              <img onClick={this.handleCloseTerminal} src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Font_Awesome_5_solid_times.svg/823px-Font_Awesome_5_solid_times.svg.png" alt="Close shell editor" />
-            </div>
-            <div id="xterm-container" className={showTerminal && "active"}></div>
-          </div>,
-          shell
-        )}
+        {showConsole && <div className="run-code-snippet" onClick={() => handleOpenTerminal(formattedCode)}>Run in terminal</div>}
       </div>
       );
-    }
   }
 }
 

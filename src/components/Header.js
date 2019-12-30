@@ -64,7 +64,7 @@ const Header = ({location}) => (
               </div>
                 <ul className={'nav navbar-nav navBarUL navbar-right'}>
                   {githubUrl !== '' ?
-                    (<li class="github-container">
+                    (<li className="github-container">
                       <a className="social-media-btn" href={githubUrl} target="_blank" rel="noopener noreferrer">
                         <span>Star on</span>
                         <img className="github-icon" src={githubLogo} alt={'Github'} />
