@@ -622,20 +622,20 @@ img {
 
 #xterm-container.active {
   display: block;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
 }
 
 #xterm-container.active .xterm-viewport {
   overflow: hidden;
 }
 
-#shell-editor .shell-toolbar {
+#shell-editor {
   position: fixed;
-  bottom: 297px;
-  height: 40px;
+  bottom: 0;
   width: 100%;
+}
+
+#shell-editor .shell-toolbar {
+  height: 40px;
   background: #eee;
   border: 1px solid darkgrey;
   display: flex;
@@ -649,7 +649,7 @@ img {
 .shell-toolbar img {
   height: 20px;
   width: 15px;
-  margin: 10px 30px;
+  margin: 10px 15px;
 }
 
 #xterm-container .terminal {

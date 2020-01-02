@@ -7,6 +7,7 @@ import Sidebar from "./sidebar";
 import RightSidebar from "./rightSidebar";
 import { Terminal } from 'xterm';
 import { useTerminal, TerminalProvider } from './terminalContext';
+import { executeQuery } from './helpers/terminalHelper';
 
 import minimizeLogo from './images/window-minimize.svg';
 import maximizeLogo from './images/window-maximize.svg';
@@ -50,15 +51,12 @@ const RightSideBarWidth = styled('div')`
   width: 224px;
 `;
 
-function sanitizeString(str){
-  str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
-  return str.trim();
-}
-
 const Theme = ({ children, location }) => {
   const [ terminalStatus, setTerminalStatus ] = useTerminal();
   const [ universes, setUniverseList ] = useState([]);
   const [ currentUniverse, setUniverse ] = useState('');
+  // const [ commandHistory, setCommandHistory ] = useState([]);
+  // const [ historyIndex, setHistoryIndex ] = useState(-1);
 
   const showTerminal = terminalStatus.alive && !terminalStatus.minimized;
   
@@ -70,80 +68,47 @@ const Theme = ({ children, location }) => {
     const term = new Terminal({
       rows: 15,
     });
+
+    // Local state for terminal
+    let terminalState = {
+      commands: [],
+      index: -1,
+    };
+
     window.term = term;
     term.open(document.getElementById('xterm-container'));
     document.getElementById('xterm-container').classList.add('active');
     term.writeln('Hello from \x1B[1;3;33mYugabyteDB\x1B[0m! Enter your commands below.');
     term.write('$ ' + initialCode.trim());
     term.onKey((ev) => {
+      const { commands, index } = terminalState;
       if (ev.domEvent.key === 'Backspace') {
         if (term.buffer.cursorX > 2) {
           term.write('\b \b');
         }
+      } else if (ev.domEvent.key === 'ArrowUp') {
+        if (index < commands.length - 1) {
+          terminalState.index += 1;
+          const previousCommand = commands[index + 1];
+          term.write(`\x1b[2K\r$ ${previousCommand}`);
+        }
+      } else if (ev.domEvent.key === 'ArrowDown') {
+        if (index > -1) {
+          terminalState.index -= 1;
+          const nextCommand = commands[index - 1] || '';
+          term.write(`\x1b[2K\r$ ${nextCommand}`);
+        }
       } else if (ev.domEvent.key === 'Enter') {
-        const apiToken = localStorage.getItem('token');
-        const customerId = localStorage.getItem('customer');
-        if (apiToken && customerId) {
-          const url = `${INSTANCE_URL}/api/v1/customers/${customerId}/universes/${currentUniverse}/run_query`;
-          const authHeader = new Headers({
-            'Content-Type': 'application/json',
-            'X-AUTH-TOKEN': apiToken,
-          });
-          term.select(2, term.buffer.cursorY, term.buffer.cursorX - 2); // Omit shell symbol and space
-          const data = {
-            query: term.getSelection(),
-            "db_name": "yugabyte",
-          };
-          term.write('\r\n');
-  
-          fetch(url, {
-            method: 'POST',
-            headers: authHeader,
-            body: JSON.stringify(data),
-            mode: 'cors',
-            cache: 'default',
-          }).then (response => response.json())
-            .then((data) => {
-              if (data.error) {
-                // Sanitize input
-                const cleanErrorStr = sanitizeString(data.error);
-                term.write(`\x1B[31m${cleanErrorStr}\x1B[0m\r\n$ `);
-              } else if (data.result.length) {
-                const tableColumnInfo = [];
-                const firstRow = data.result[0];
-                for (let colname of Object.keys(firstRow)) {
-                  tableColumnInfo.push({
-                    name: colname,
-                    longest: colname.length 
-                  });
-                }
-                
-                // Iterate over table and find longest string
-                for (let row of data.result) {
-                  tableColumnInfo.forEach(c => {
-                    if (row[c.name].length > c.longest) {
-                      c.longest = row[c.name].length;
-                    }
-                  });
-                }
-  
-                // Write header row
-                term.writeln(' ' + tableColumnInfo.map(c => c.name + ' '.repeat(c.longest - c.name.length)).join(' | ') + ' ');                
-                data.result.forEach((row) => {
-                  term.writeln(tableColumnInfo.map(col => '-'.repeat(col.longest + 2)).join('+'));
-                  term.writeln(tableColumnInfo.map(col => ` ${row[col.name]} ` + ' '.repeat(col.longest - row[col.name].length)).join('|'));
-                });
-                term.write(`(${data.result.length} rows)\r\n$ `);
-              } else {
-                term.write('(0 rows)\r\n$ ');
-              }
-              
-          });
+        term.select(2, term.buffer.cursorY, term.buffer.cursorX - 2); // Omit shell symbol and space
+        const queryString = term.getSelection();
+        terminalState.commands = [queryString, ...commands].slice(0, 50);
+        if (queryString) {
+          executeQuery(term, INSTANCE_URL, currentUniverse, queryString);
         } else {
-          term.write('\r\n\x1B[31mYugabyteDB currently not figured. Please setup a local installation of yugabyted\x1B[0m\r\n$ ');
+          term.write('\r\n$ ');
         }
       } else {
-        term.write(ev.key)
+        term.write(ev.key);
       }
     });
   }
@@ -222,7 +187,7 @@ const Theme = ({ children, location }) => {
         </Wrapper>
       </MDXProvider>
       {terminalStatus.alive &&
-        <div id="shell-editor">
+        <div id="shell-editor" onTouchMove={e => e.stopPropagation()}>
           <div className={terminalStatus.minimized ? "shell-toolbar minimized" : "shell-toolbar"}>
             <span style={{margin: '8px'}}>Target Universe:</span>
             <div style={{width: '200px'}}>
@@ -250,6 +215,7 @@ const Theme = ({ children, location }) => {
   );
 }
 
+/* Need this component to wrap the Layout in a Context */
 const Layout = props => {
   return (
     <TerminalProvider>

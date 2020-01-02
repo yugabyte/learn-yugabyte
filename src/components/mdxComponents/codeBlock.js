@@ -35,7 +35,6 @@ function CodeBlock(props) {
     const showConsole = props.console !== 'false';
     const [terminalStatus, setTerminalStatus] = useTerminal();
     const handleOpenTerminal = (code) => {
-      console.log('clicked open terminal')
       setTerminalStatus({
         code,
         alive: true,
