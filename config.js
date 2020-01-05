@@ -16,12 +16,12 @@ const config = {
 		],
 	},
 	"sidebar": {
-		"forcedNavOrder": [
-			"/prerequisites",
-			"/fundamentals",
-			"/joins",
-			"/sample-apps"
-		],
+		// "forcedNavOrder": [
+		// 	"/prerequisites",
+		// 	"/fundamentals",
+		// 	"/joins",
+		// 	"/sample-apps"
+		// ],
 		"links": [
 			{ "text": "YugabyteDB", "link": "https://yugabyte.com"},
 			{ "text": "GitHub", "link": "https://github.com/yugabyte/yugabyte-db"},

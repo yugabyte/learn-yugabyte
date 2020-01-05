@@ -5,7 +5,6 @@ import { injectGlobal } from "react-emotion";
 import '../components/styles.css';
 import config from '../../config';
 import LandingPage from '../components/mainPageLayout';
-const courseList = config.courses;
 
 injectGlobal`
   * {
@@ -46,11 +45,34 @@ export default class MDXRuntimeTest extends Component {
     const {
       site: {
         siteMetadata: { title, description }
-      }
+      },
+      allMdx: { edges }
     } = data;
 
     let canonicalUrl = config.gatsby.siteUrl;
-
+    const courseList = [];
+    edges.sort((a, b) => {
+      const str1 = a.node.fields.relativePath
+      const str2 = b.node.fields.relativePath;
+      return str1.localeCompare(str2);
+    }).forEach(e => {
+      const { 
+        fields: { topLevelDir, slug },
+        frontmatter: { title: mdxTitle, description }
+      } = e.node;
+      const slugStripLeadingSlash = slug.substring(1, slug.length-1);
+      const slugArr = slugStripLeadingSlash.split('/');
+      if (slugArr.length === 1) {
+        const data = {
+          description,
+          title: mdxTitle,
+          category: topLevelDir,
+          url: slug,
+        }
+        courseList.push(data);
+      }
+    });
+    
     return (
       <div className="home-layout">
         <Helmet>
@@ -75,6 +97,21 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
+      }
+    }
+    allMdx {
+      edges {
+        node {
+          fields {
+            slug
+            relativePath
+            topLevelDir
+          }
+          frontmatter {
+            title
+            description
+          }
+        }
       }
     }
   }

@@ -1,4 +1,5 @@
 const componentWithMDXScope = require("gatsby-mdx/component-with-mdx-scope");
+const { createFilePath } = require('gatsby-source-filesystem');
 const path = require("path");
 const startCase = require("lodash.startcase");
 
@@ -90,25 +91,60 @@ exports.onCreateBabelConfig = ({ actions }) => {
   });
 };
 
+const getSlugParents = (slug) => {
+	const slugParentString = slug.substring(1, slug.length-1);
+	return slugParentString.split('/');
+};
+
+const numberedRegex = /^\d{1,2}-(.*)/i;
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `Mdx`) {
+    const slug = createFilePath({ node, getNode, basePath: 'content' });
+    const slugParentsArr = getSlugParents(slug);
     const parent = getNode(node.parent);
-    let value = parent.relativePath.replace(parent.ext, "");
 
-    if (value === "index") {
-      value = "";
+    let strippedSlugArr = slugParentsArr.map(fp => {
+      if (fp === '_index') {
+        return '';
+      } else if (numberedRegex.test(fp)) {
+        const name = numberedRegex.exec(fp)[1];
+        return name;
+      } else {
+        return fp;
+      }
+    });
+    
+    let topLevelDir = '';
+    if (slugParentsArr.length > 1) {      
+      strippedSlugArr.splice(0, 1); // Remove first element which is series name      
+      if (numberedRegex.test(slugParentsArr[0])) {
+        topLevelDir = numberedRegex.exec(slugParentsArr[0])[1].replace(/-/g, ' ');
+      }
     }
 
     createNodeField({
-      name: `slug`,
+      name: 'relativePath',
       node,
-      value: `/${value}`
+      value: slug,
     });
 
     createNodeField({
-      name: "id",
+      name: 'topLevelDir',
+      node,
+      value: topLevelDir,
+    });
+
+    createNodeField({
+      name: 'slug',
+      node,
+      value: `/${strippedSlugArr.join('/')}`
+    });
+
+    createNodeField({
+      name: 'id',
       node,
       value: node.id
     });

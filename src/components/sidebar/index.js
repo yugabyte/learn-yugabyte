@@ -114,6 +114,8 @@ const SidebarLayout = ({location}) => (
               fields {
                 slug
                 title
+                slug
+                relativePath
               }
             }
           }
@@ -124,6 +126,10 @@ const SidebarLayout = ({location}) => (
       const displayedNodes = allMdx.edges.filter((edge) => {        
         const field = edge.node.fields;
         return field.slug[field.slug.lastIndexOf('/') + 1] !== '_';
+      }).sort((a, b) => {
+        const str1 = a.node.fields.relativePath
+        const str2 = b.node.fields.relativePath;
+        return str1.localeCompare(str2);
       });
       return (
         <Sidebar>

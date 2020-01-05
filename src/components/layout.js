@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "react-emotion";
 import { MDXProvider } from "@mdx-js/react";
 import ThemeProvider from "./themeProvider";
@@ -55,8 +55,10 @@ const Theme = ({ children, location }) => {
   const [ terminalStatus, setTerminalStatus ] = useTerminal();
   const [ universes, setUniverseList ] = useState([]);
   const [ currentUniverse, setUniverse ] = useState('');
-  // const [ commandHistory, setCommandHistory ] = useState([]);
-  // const [ historyIndex, setHistoryIndex ] = useState(-1);
+  const [ editable, setDbEditable ] = useState(false);
+
+  const [ database, setDatabase ] = useState('yugabyte');
+  const dbNameRef = useRef(database);
 
   const showTerminal = terminalStatus.alive && !terminalStatus.minimized;
   
@@ -66,7 +68,8 @@ const Theme = ({ children, location }) => {
       window.term.dispose();
     }
     const term = new Terminal({
-      rows: 15,
+      rows: 20,
+      cols: 160,
     });
 
     // Local state for terminal
@@ -79,33 +82,36 @@ const Theme = ({ children, location }) => {
     term.open(document.getElementById('xterm-container'));
     document.getElementById('xterm-container').classList.add('active');
     term.writeln('Hello from \x1B[1;3;33mYugabyteDB\x1B[0m! Enter your commands below.');
-    term.write('$ ' + initialCode.trim());
+    term.write(`${database}=# ${initialCode.trim()}`);
+
+    // Keyboard event handler
     term.onKey((ev) => {
       const { commands, index } = terminalState;
+      const dbName = dbNameRef.current;
       if (ev.domEvent.key === 'Backspace') {
-        if (term.buffer.cursorX > 2) {
+        if (term.buffer.cursorX > dbName.length + 3) {
           term.write('\b \b');
         }
       } else if (ev.domEvent.key === 'ArrowUp') {
         if (index < commands.length - 1) {
           terminalState.index += 1;
           const previousCommand = commands[index + 1];
-          term.write(`\x1b[2K\r$ ${previousCommand}`);
+          term.write(`\x1b[2K\r${dbName}=# ${previousCommand}`);
         }
       } else if (ev.domEvent.key === 'ArrowDown') {
         if (index > -1) {
           terminalState.index -= 1;
           const nextCommand = commands[index - 1] || '';
-          term.write(`\x1b[2K\r$ ${nextCommand}`);
+          term.write(`\x1b[2K\r${dbName}=# ${nextCommand}`);
         }
       } else if (ev.domEvent.key === 'Enter') {
-        term.select(2, term.buffer.cursorY, term.buffer.cursorX - 2); // Omit shell symbol and space
+        term.select(dbName.length + 3, term.buffer.cursorY, term.buffer.cursorX - (dbName.length + 3)); // Omit shell symbol and space
         const queryString = term.getSelection();
         terminalState.commands = [queryString, ...commands].slice(0, 50);
         if (queryString) {
-          executeQuery(term, INSTANCE_URL, currentUniverse, queryString);
+          executeQuery(term, dbName, INSTANCE_URL, currentUniverse, queryString);
         } else {
-          term.write('\r\n$ ');
+          term.write(`\r\n${dbName}=# `);
         }
       } else {
         term.write(ev.key);
@@ -171,10 +177,13 @@ const Theme = ({ children, location }) => {
     }
   }, [terminalStatus.alive, terminalStatus.code]);
 
+  
   return (
     <ThemeProvider location={location}>
-      <MDXProvider components={mdxComponents} test={505}>
-        <Wrapper>
+      <MDXProvider components={mdxComponents}>
+        <Wrapper style={{ marginBottom: terminalStatus.alive ? (
+            terminalStatus.minimized ? '40px' : '400px'
+          ) : 0}}>
           <LeftSideBarWidth className={'hidden-xs'}>
             <Sidebar location={location} />
           </LeftSideBarWidth>
@@ -189,13 +198,30 @@ const Theme = ({ children, location }) => {
       {terminalStatus.alive &&
         <div id="shell-editor" onTouchMove={e => e.stopPropagation()}>
           <div className={terminalStatus.minimized ? "shell-toolbar minimized" : "shell-toolbar"}>
-            <span style={{margin: '8px'}}>Target Universe:</span>
-            <div style={{width: '200px'}}>
-              <select className="select-css">
+            <div className="db-toolbar-container">
+              <label className="db-input-group">Target Universe:</label>              
+              <select className="select-css clickable">
                 {universes.map(universe => (
                   <option key={universe.universeUUID}>{universe.name}</option>
                 ))}
               </select>
+            </div>
+            <div className="db-toolbar-container">
+              <label className="db-input-group">Database:</label>
+              {editable ? 
+                <input
+                  placeholder="Enter database name"
+                  defaultValue={database}
+                  onBlur={(e) => {
+                      setDbEditable(false);
+                      setDatabase(e.target.value);
+                      dbNameRef.current = e.target.value;
+                  }}/>
+                :
+                <div className="db-input-group clickable" onClick={() => setDbEditable(true)}>
+                  {database}
+                </div> 
+              }
             </div>
             <div className="window-actions">
               {terminalStatus.minimized ? 

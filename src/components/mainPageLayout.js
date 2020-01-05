@@ -96,15 +96,21 @@ const Layout = ({ children, location, courseData }) => {
       </LessonTable>   
     </div>);
   } else {
-    displayedCourses = lessonOrder.filter(x => !selectedOption.value || x.value === selectedOption.value).map(section => {
-      const sectionCourses = shownCourses.filter(c => c.category === section.label);
+    const seriesList = shownCourses.map(x => x.category).reduce((acc, cur) => {
+      if (acc.includes(cur)) {
+        return acc;
+      }
+      return [...acc, cur];
+    });
+    displayedCourses = seriesList.map(seriesName => {
+      const sectionCourses = shownCourses.filter(c => c.category === seriesName);
       if (sectionCourses.length || selectedOption.value) {
         return (
-          <div key={`section-${section.value}`}>
-            <SectionHeader>{section.label}</SectionHeader>
+          <div key={`section-${seriesName}`}>
+            <SectionHeader>{seriesName}</SectionHeader>
             <LessonTable>
-              {shownCourses.filter(c => c.category === section.label).map((val, idx) => (
-                <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url={!val.disabled && (val.url || '/prerequisites')} />
+              {sectionCourses.map((val, idx) => (
+                <Card key={`${idx}-${val.title}`} title={val.title} description={val.description} time={val.duration} url={!val.disabled && (val.url || '/')} />
               ))}
             </LessonTable>   
           </div>

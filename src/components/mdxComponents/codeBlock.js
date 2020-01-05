@@ -33,7 +33,7 @@ function CodeBlock(props) {
   } else {
     const formattedCode = exampleCode.split('\n').join('\r\n  ');
     const showConsole = props.console !== 'false';
-    const [terminalStatus, setTerminalStatus] = useTerminal();
+    const [terminalStatus, setTerminalStatus] = useTerminal(); // eslint-disable-line no-unused-vars
     const handleOpenTerminal = (code) => {
       setTerminalStatus({
         code,

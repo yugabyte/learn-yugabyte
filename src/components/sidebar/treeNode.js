@@ -37,9 +37,9 @@ const TreeNode = ({className = '', setCollapsed, collapsed, url, title, items })
 
       {!isCollapsed && hasChildren ? (
         <ul>
-          {items.map((item) => (
+          {items.map((item, idx) => (
             <TreeNode
-              key={item.url}
+              key={`${item.url}-${idx}`}
               setCollapsed={setCollapsed}
               collapsed={collapsed}
               {...item}

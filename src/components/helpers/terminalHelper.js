@@ -1,9 +1,9 @@
 function sanitizeString(str){
-  str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+  str = str.replace(/[^a-z0-9áéíóúñü .,_-]/gim,"");
   return str.trim();
 }
 
-export const executeQuery = (term, baseUrl, universeUUID, query) => {
+export const executeQuery = (term, database, baseUrl, universeUUID, query) => {
   const apiToken = localStorage.getItem('token');
   const customerId = localStorage.getItem('customer');
   if (apiToken && customerId) {
@@ -30,10 +30,10 @@ export const executeQuery = (term, baseUrl, universeUUID, query) => {
         if (data.error) {
           // Sanitize input
           const cleanErrorStr = sanitizeString(data.error);
-          term.write(`\x1B[31m${cleanErrorStr}\x1B[0m\r\n$ `);
+          term.write(`\x1B[31m${cleanErrorStr}\x1B[0m\r\n${database}=# `);
         } else if (data.queryType) {
           // Writes to database show number of items changed
-          term.write(`${data.queryType} ${data.count || 0}\r\n$ `);
+          term.write(`${data.queryType} ${data.count || 0}\r\n${database}=# `);
         } else if (data.result.length) {
           const tableColumnInfo = [];
           const firstRow = data.result[0];
@@ -59,13 +59,13 @@ export const executeQuery = (term, baseUrl, universeUUID, query) => {
             term.writeln(tableColumnInfo.map(col => '-'.repeat(col.longest + 2)).join('+'));
             term.writeln(tableColumnInfo.map(col => ` ${row[col.name]} ` + ' '.repeat(col.longest - row[col.name].length)).join('|'));
           });
-          term.write(`(${data.result.length} rows)\r\n$ `);
+          term.write(`(${data.result.length} rows)\r\n${database}=# `);
         } else {
           // No data found
-          term.write('(0 rows)\r\n$ ');
+          term.write(`(0 rows)\r\n${database}=# `);
         }
     });
   } else {
-    term.write('\r\n\x1B[31mYugabyteDB currently not figured. Please setup a local installation of yugabyted\x1B[0m\r\n$ ');
+    term.write(`\r\n\x1B[31mYugabyteDB currently not figured. Please setup a local installation of yugabyted\x1B[0m\r\n${database}=# `);
   }
 }
