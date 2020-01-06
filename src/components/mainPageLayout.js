@@ -66,18 +66,25 @@ const SortContainer = styled('div')`
   display: inline-flex;
 `;
 
-const lessonOrder = [
-  { value: 'basic', label: 'YSQL Basics'},
-  { value: 'advanced', label: 'YSQL Advanced Topics'},
-  { value: 'distributedsql', label: 'Distributed SQL Concepts'},
-  { value: 'buildingorm', label: 'Building Apps with ORM\'s'}
-];
+// const lessonOrder = [
+//   { value: 'basic', label: 'YSQL Basics'},
+//   { value: 'advanced', label: 'YSQL Advanced Topics'},
+//   { value: 'distributedsql', label: 'Distributed SQL Concepts'},
+//   { value: 'buildingorm', label: 'Building Apps with ORM\'s'}
+// ];
 
 const Layout = ({ children, location, courseData }) => {
   const [selectedOption, setOption] = useState('');
   const [sortingType, setSortingFn] = useState('series');
 
   const shownCourses = selectedOption.value ? courseData.filter(c => c.category === selectedOption.label) : [...courseData];
+  const seriesList = shownCourses.map(x => x.category).reduce((acc, cur) => {
+    if (acc.includes(cur)) {
+      return acc;
+    }
+    return [...acc, cur];
+  }, []);
+  const seriesOptions = seriesList.map(x => ({ value: x, label: x}));
   let displayedCourses = null;
   if (sortingType === 'alphabetical') {
     displayedCourses = (<div>
@@ -96,12 +103,6 @@ const Layout = ({ children, location, courseData }) => {
       </LessonTable>   
     </div>);
   } else {
-    const seriesList = shownCourses.map(x => x.category).reduce((acc, cur) => {
-      if (acc.includes(cur)) {
-        return acc;
-      }
-      return [...acc, cur];
-    });
     displayedCourses = seriesList.map(seriesName => {
       const sectionCourses = shownCourses.filter(c => c.category === seriesName);
       if (sectionCourses.length || selectedOption.value) {
@@ -138,7 +139,7 @@ const Layout = ({ children, location, courseData }) => {
             <Select
               value={selectedOption}
               onChange={e => setOption(e)}
-              options={selectedOption ? [{ value: '', label: 'Show all'}, ...lessonOrder]: lessonOrder}
+              options={selectedOption ? [{ value: '', label: 'Show all'}, ...seriesOptions]: seriesOptions}
               placeholder={'Filter by category'}
               styles={{
                 container: (provided) => ({
