@@ -39,6 +39,7 @@ function CodeBlock(props) {
         code,
         alive: true,
         minimized: false,
+        counter: (terminalStatus.counter || 0) + 1,
       });
     }
 

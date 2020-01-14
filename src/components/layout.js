@@ -63,10 +63,6 @@ const Theme = ({ children, location }) => {
   const showTerminal = terminalStatus.alive && !terminalStatus.minimized;
   
   const initXterm = (initialCode) => {
-    // If there is an existing terminal open, destroy instance
-    if (window.term) {
-      window.term.dispose();
-    }
     const term = new Terminal({
       rows: 20,
       cols: 160,
@@ -172,10 +168,22 @@ const Theme = ({ children, location }) => {
 
   // Hook for updating xterm
   useEffect(() => {
-    if (terminalStatus.alive && !terminalStatus.minimized) {
-      initXterm(terminalStatus.code);
+    if (window.term) {
+      // User has closed terminal by clicking 'X' button
+      // OR User has navigated to new page without closing terminal in previous page
+      if (!terminalStatus.alive || terminalStatus.counter === undefined) {
+        window.term.dispose();
+        window.term = null;
+      } else {
+        const dbName = dbNameRef.current;
+        window.term.write(`\x1b[2K\r${dbName}=# ${terminalStatus.code.trim()}`);
+      }
+    } else {
+      if (terminalStatus.alive && !terminalStatus.minimized) {
+        initXterm(terminalStatus.code);
+      }
     }
-  }, [terminalStatus.alive, terminalStatus.code]);
+  }, [terminalStatus.counter]);
 
   
   return (
@@ -225,13 +233,13 @@ const Theme = ({ children, location }) => {
             </div>
             <div className="window-actions">
               {terminalStatus.minimized ? 
-                <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, minimized: false})}
+                <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, minimized: false, counter: terminalStatus.counter + 1})}
                   src={maximizeLogo} alt="Maximize shell editor" />
                 :
-                <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, minimized: true})}
+                <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, minimized: true, counter: terminalStatus.counter + 1})}
                   src={minimizeLogo} alt="Minimize shell editor"/>
               }
-              <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, alive: false})} src={timesLogo} alt="Close shell editor" />            
+              <img className="shell-icon" onClick={() => setTerminalStatus({...terminalStatus, alive: false, counter: terminalStatus.counter + 1})} src={timesLogo} alt="Close shell editor" />            
             </div>
           </div>
           <div id="xterm-container" className={showTerminal ? 'active': ''}></div>
