@@ -131,7 +131,7 @@ const Theme = ({ children, location }) => {
         localStorage.setItem('customer', data.customerUUID);
         const authHeader = new Headers({
           'Content-Type': 'application/json',
-          'X-AUTH-TOKEN': data.apiToken
+          'X-AUTH-YW-API-TOKEN': data.apiToken
         });
         
         response = await fetch(`${INSTANCE_URL}/api/v1/customers/${data.customerUUID}/universes`,
@@ -143,7 +143,7 @@ const Theme = ({ children, location }) => {
         const customerUUID = localStorage.getItem('customer');
         const authHeader = new Headers({
           'Content-Type': 'application/json',
-          'X-AUTH-TOKEN': apiToken
+          'X-AUTH-YW-API-TOKEN': apiToken
         });
         
         let response = await fetch(`${INSTANCE_URL}/api/v1/customers/${customerUUID}/universes`,

@@ -10,7 +10,7 @@ export const executeQuery = (term, database, baseUrl, universeUUID, query) => {
     const url = `${baseUrl}/api/v1/customers/${customerId}/universes/${universeUUID}/run_query`;
     const authHeader = new Headers({
       'Content-Type': 'application/json',
-      'X-AUTH-TOKEN': apiToken,
+      'X-AUTH-YW-API-TOKEN': apiToken,
     });
     
     const data = {
